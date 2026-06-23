@@ -91,17 +91,17 @@ label
 
 {
 
-eventData.map((entry,index)=>(
+// eventData.map((entry,index)=>(
 
-<Cell
+// <Cell
 
-key={index}
+// key={index}
 
-fill={COLORS[index]}
+// fill={COLORS[index]}
 
-/>
+// />
 
-))
+// ))
 
 }
 
