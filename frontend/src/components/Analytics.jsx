@@ -77,7 +77,7 @@ Event Distribution
 
 <Pie
 
-data={eventData}
+// data={eventData}
 
 dataKey="value"
 
