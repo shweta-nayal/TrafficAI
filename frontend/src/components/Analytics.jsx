@@ -13,13 +13,13 @@ import {
 
 import axios from "axios";
 
-// const eventData = [
-//   { name: "Accident", value: 25 },
-//   { name: "Breakdown", value: 40 },
-//   { name: "Construction", value: 15 },
-//   { name: "Water Logging", value: 10 },
-//   { name: "Public Event", value: 10 },
-// ];
+const eventData = [
+  { name: "Accident", value: 25 },
+  { name: "Breakdown", value: 40 },
+  { name: "Construction", value: 15 },
+  { name: "Water Logging", value: 10 },
+  { name: "Public Event", value: 10 },
+];
 
 const COLORS = [
   "#2563EB",
@@ -29,20 +29,20 @@ const COLORS = [
   "#8B5CF6",
 ];
 
-// const manpower = [
-//   {
-//     risk: "Low",
-//     officers: 4,
-//   },
-//   {
-//     risk: "Medium",
-//     officers: 8,
-//   },
-//   {
-//     risk: "High",
-//     officers: 15,
-//   },
-// ];
+const manpower = [
+  {
+    risk: "Low",
+    officers: 4,
+  },
+  {
+    risk: "Medium",
+    officers: 8,
+  },
+  {
+    risk: "High",
+    officers: 15,
+  },
+];
 const API_BASE = "https://trafficai-z765.onrender.com";
 
 axios.get(`${API_BASE}/analytics`);
@@ -77,7 +77,7 @@ Event Distribution
 
 <Pie
 
-// data={eventData}
+data={eventData}
 
 dataKey="value"
 
@@ -91,17 +91,17 @@ label
 
 {
 
-// eventData.map((entry,index)=>(
+eventData.map((entry,index)=>(
 
-// <Cell
+<Cell
 
-// key={index}
+key={index}
 
-// fill={COLORS[index]}
+fill={COLORS[index]}
 
-// />
+/>
 
-// ))
+))
 
 }
 
