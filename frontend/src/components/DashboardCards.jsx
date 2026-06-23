@@ -4,6 +4,7 @@ import {
     FaRoad,
     FaUserShield
 } from "react-icons/fa";
+import axios from "axios";
 
 export default function DashboardCards() {
 
@@ -40,7 +41,7 @@ export default function DashboardCards() {
     // ];
 
     axios.get("/dashboard")
-    
+
     return (
 
         <div id="dashboard" className="max-w-7xl mx-auto px-8 mt-10">

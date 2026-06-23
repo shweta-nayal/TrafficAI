@@ -11,6 +11,8 @@ import {
   CartesianGrid
 } from "recharts";
 
+import axios from "axios";
+
 // const eventData = [
 //   { name: "Accident", value: 25 },
 //   { name: "Breakdown", value: 40 },
