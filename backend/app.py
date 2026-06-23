@@ -1,5 +1,5 @@
 from data_service import (
-    get_dashboard_stats,
+    get_dashboard,
     get_recent_events,
     get_map_events,
     get_analytics
@@ -110,7 +110,7 @@ def predict():
 @app.route("/dashboard")
 def dashboard():
 
-    return jsonify(get_dashboard_stats())
+    return jsonify(get_dashboard())
 
 @app.route("/events")
 def events():
