@@ -1,5 +1,5 @@
 import { FaArrowRight } from "react-icons/fa";
-import hero from "../assets/hero.jpg";
+import hero from "../assets/traffic-hero.jpg";
 
 export default function Hero() {
 
@@ -50,8 +50,10 @@ export default function Hero() {
 
                         <img
 
-                            src={hero}
-                            className="rounded-3xl shadow-2xl object-cover h-[500px] w-full"
+                            src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=900"
+                            // src="https://unsplash.com/photos/cars-on-road-during-daytime-VEVfbQtyB8s?w=900"
+
+                            className="rounded-3xl shadow-2xl"
 
                         />
 
