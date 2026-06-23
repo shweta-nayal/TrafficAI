@@ -10,12 +10,21 @@ df = pd.read_csv("data/eventDataset.csv")
 # Basic Cleaning
 # -----------------------------
 
-df.fillna("Unknown", inplace=True)
+# Fill text columns
+object_cols = df.select_dtypes(include=["object"]).columns
+df[object_cols] = df[object_cols].fillna("Unknown")
+
+# Fill numeric columns
+numeric_cols = df.select_dtypes(include=["number"]).columns
+df[numeric_cols] = df[numeric_cols].fillna(0)
 
 # Convert datetime
 
 if "start_datetime" in df.columns:
-    df["start_datetime"] = pd.to_datetime(df["start_datetime"])
+    df["start_datetime"] = pd.to_datetime(
+    df["start_datetime"],
+    errors="coerce"
+)
 
 
 # ===================================================
