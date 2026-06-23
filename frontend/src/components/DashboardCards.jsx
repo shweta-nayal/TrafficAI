@@ -50,7 +50,7 @@ export default function DashboardCards() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-                {cards.map((card) => (
+                {/* {cards.map((card) => (
 
                     <div
                         key={card.title}
@@ -87,7 +87,7 @@ export default function DashboardCards() {
 
                     </div>
 
-                ))}
+                ))} */}
 
             </div>
 
