@@ -9,7 +9,7 @@ export default function RecentEvents() {
 
         axios
 
-            .get("http://127.0.0.1:5000/recent-events")
+            .get("https://trafficai-z765.onrender.com/recent-events")
 
             .then(res => {
 

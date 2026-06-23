@@ -1,3 +1,10 @@
+from data_service import (
+    get_dashboard_stats,
+    get_recent_events,
+    get_map_events,
+    get_analytics
+)
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
@@ -100,83 +107,25 @@ def predict():
 
 })
 
-@app.route("/events", methods=["GET"])
-def get_events():
+@app.route("/dashboard")
+def dashboard():
 
-    sample_events = [
+    return jsonify(get_dashboard_stats())
 
-        {
-            "lat":12.9716,
-            "lng":77.5946,
-            "risk":"High",
-            "cause":"Accident"
-        },
+@app.route("/events")
+def events():
 
-        {
-            "lat":12.975,
-            "lng":77.605,
-            "risk":"Medium",
-            "cause":"Construction"
-        },
-
-        {
-            "lat":12.964,
-            "lng":77.582,
-            "risk":"Low",
-            "cause":"Vehicle Breakdown"
-        },
-
-        {
-            "lat":12.987,
-            "lng":77.615,
-            "risk":"High",
-            "cause":"Public Event"
-        }
-
-    ]
-
-    return jsonify(sample_events)
+    return jsonify(get_map_events())
 
 @app.route("/recent-events")
 def recent_events():
 
-    events = [
+    return jsonify(get_recent_events())
 
-        {
-            "event":"Accident",
-            "cause":"Vehicle Collision",
-            "risk":"High",
-            "zone":"East Zone",
-            "status":"Active"
-        },
+@app.route("/analytics")
+def analytics():
 
-        {
-            "event":"Construction",
-            "cause":"Metro Work",
-            "risk":"Medium",
-            "zone":"North Zone",
-            "status":"Ongoing"
-        },
-
-        {
-            "event":"Vehicle Breakdown",
-            "cause":"Truck Failure",
-            "risk":"Low",
-            "zone":"West Zone",
-            "status":"Resolved"
-        },
-
-        {
-            "event":"Public Event",
-            "cause":"Festival",
-            "risk":"Medium",
-            "zone":"Central Zone",
-            "status":"Planned"
-        }
-
-    ]
-
-    return jsonify(events)
+    return jsonify(get_analytics())
 
 if __name__ == "__main__":
     app.run(debug=True)

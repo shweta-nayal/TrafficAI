@@ -7,38 +7,40 @@ import {
 
 export default function DashboardCards() {
 
-    const cards = [
+    // const cards = [
 
-        {
-            title: "Today's Events",
-            value: "156",
-            icon: <FaTrafficLight />,
-            color: "bg-blue-600"
-        },
+    //     {
+    //         title: "Today's Events",
+    //         value: "156",
+    //         icon: <FaTrafficLight />,
+    //         color: "bg-blue-600"
+    //     },
 
-        {
-            title: "High Risk Events",
-            value: "42",
-            icon: <FaCarCrash />,
-            color: "bg-red-600"
-        },
+    //     {
+    //         title: "High Risk Events",
+    //         value: "42",
+    //         icon: <FaCarCrash />,
+    //         color: "bg-red-600"
+    //     },
 
-        {
-            title: "Congestion Alerts",
-            value: "28",
-            icon: <FaRoad />,
-            color: "bg-orange-500"
-        },
+    //     {
+    //         title: "Congestion Alerts",
+    //         value: "28",
+    //         icon: <FaRoad />,
+    //         color: "bg-orange-500"
+    //     },
 
-        {
-            title: "Police Deployed",
-            value: "314",
-            icon: <FaUserShield />,
-            color: "bg-green-600"
-        }
+    //     {
+    //         title: "Police Deployed",
+    //         value: "314",
+    //         icon: <FaUserShield />,
+    //         color: "bg-green-600"
+    //     }
 
-    ];
+    // ];
 
+    axios.get("/dashboard")
+    
     return (
 
         <div id="dashboard" className="max-w-7xl mx-auto px-8 mt-10">

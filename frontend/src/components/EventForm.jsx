@@ -60,7 +60,7 @@ export default function EventForm({ setPrediction }) {
 
             const res = await axios.post(
 
-                "http://127.0.0.1:5000/predict",
+                "https://trafficai-z765.onrender.com/predict",
 
                 formData
 

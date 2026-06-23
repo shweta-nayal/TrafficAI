@@ -20,7 +20,7 @@ export default function MapView() {
     useEffect(()=>{
 
         axios
-            .get("http://127.0.0.1:5000/events")
+            .get("https://trafficai-z765.onrender.com/events")
             .then(res=>setEvents(res.data))
             .catch(console.error);
 
