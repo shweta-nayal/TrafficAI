@@ -43,8 +43,9 @@ const COLORS = [
 //     officers: 15,
 //   },
 // ];
+const API_BASE = "https://trafficai-z765.onrender.com";
 
-axios.get("/analytics")
+axios.get(`${API_BASE}/analytics`);
 
 export default function Analytics() {
 

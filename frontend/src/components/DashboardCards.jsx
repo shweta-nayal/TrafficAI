@@ -40,7 +40,9 @@ export default function DashboardCards() {
 
     // ];
 
-    axios.get("/dashboard")
+    const API_BASE = "https://trafficai-z765.onrender.com";
+
+    axios.get(`${API_BASE}/dashboard`);
 
     return (
 
