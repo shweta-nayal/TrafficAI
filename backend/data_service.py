@@ -122,8 +122,9 @@ def get_recent_events(page=1, limit=10):
 
         "events": events,
         "page": page,
+        "limit": limit,
         "total_pages": total_pages,
-        "total_records": total_records
+        "total": total_records
 
     }
 
