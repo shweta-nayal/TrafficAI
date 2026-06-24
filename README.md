@@ -10,9 +10,9 @@ Unlike traditional traffic monitoring systems that react after congestion occurs
 
 # 🌐 Live Demo
 
-Frontend: [https://your-vercel-url.vercel.app](https://traffic-ai-jade.vercel.app/)
+Frontend: https://traffic-ai-jade.vercel.app/
 
-Backend API: [https://your-render-url.onrender.com](https://trafficai-z765.onrender.com)
+Backend API: https://trafficai-z765.onrender.com
 
 ---
 
@@ -111,7 +111,7 @@ Model trained using historical Bengaluru traffic event dataset.
 
 Algorithms experimented during development include:
 
-- Random Forest Classifier ✅ (Final Model)
+- Random Forest Classifier 
 - Decision Tree
 - Logistic Regression
 - Gradient Boosting (evaluation)
