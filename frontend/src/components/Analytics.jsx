@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 import {
   PieChart,
   Pie,
@@ -8,18 +11,8 @@ import {
   Bar,
   XAxis,
   YAxis,
-  CartesianGrid
+  CartesianGrid,
 } from "recharts";
-
-import axios from "axios";
-
-const eventData = [
-  { name: "Accident", value: 25 },
-  { name: "Breakdown", value: 40 },
-  { name: "Construction", value: 15 },
-  { name: "Water Logging", value: 10 },
-  { name: "Public Event", value: 10 },
-];
 
 const COLORS = [
   "#2563EB",
@@ -29,25 +22,28 @@ const COLORS = [
   "#8B5CF6",
 ];
 
-const manpower = [
-  {
-    risk: "Low",
-    officers: 4,
-  },
-  {
-    risk: "Medium",
-    officers: 8,
-  },
-  {
-    risk: "High",
-    officers: 15,
-  },
-];
 const API_BASE = "https://trafficai-z765.onrender.com";
 
-axios.get(`${API_BASE}/analytics`);
-
 export default function Analytics() {
+
+  const [eventData, setEventData] = useState([]);
+
+  const [manpower, setManpower] = useState([]);
+
+  useEffect(() => {
+
+    axios
+      .get(`${API_BASE}/analytics`)
+      .then((res) => {
+
+        setEventData(res.data.event_distribution);
+
+        setManpower(res.data.manpower);
+
+      })
+      .catch((err) => console.log(err));
+
+  }, []);
 
   return (
 
@@ -69,41 +65,28 @@ Event Distribution
 
 </h2>
 
-<div style={{width:"100%",height:320}}>
+<div style={{ width: "100%", height: 320 }}>
 
 <ResponsiveContainer>
 
 <PieChart>
 
 <Pie
-
 data={eventData}
-
 dataKey="value"
-
 nameKey="name"
-
 outerRadius={110}
-
 label
-
 >
 
-{
-
-eventData.map((entry,index)=>(
+{eventData.map((entry, index) => (
 
 <Cell
-
 key={index}
-
-fill={COLORS[index]}
-
+fill={COLORS[index % COLORS.length]}
 />
 
-))
-
-}
+))}
 
 </Pie>
 
@@ -125,28 +108,24 @@ Police Deployment by Risk
 
 </h2>
 
-<div style={{width:"100%",height:320}}>
+<div style={{ width: "100%", height: 320 }}>
 
 <ResponsiveContainer>
 
 <BarChart data={manpower}>
 
-<CartesianGrid strokeDasharray="3 3"/>
+<CartesianGrid strokeDasharray="3 3" />
 
-<XAxis dataKey="risk"/>
+<XAxis dataKey="risk" />
 
-<YAxis/>
+<YAxis />
 
-<Tooltip/>
+<Tooltip />
 
 <Bar
-
 dataKey="officers"
-
 fill="#2563EB"
-
 radius={[8,8,0,0]}
-
 />
 
 </BarChart>
