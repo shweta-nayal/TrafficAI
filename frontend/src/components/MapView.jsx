@@ -4,130 +4,141 @@ import axios from "axios";
 import {
   MapContainer,
   TileLayer,
-  Marker,
-  Popup,
-  CircleMarker
+  CircleMarker,
+  Popup
 } from "react-leaflet";
 
 import "leaflet/dist/leaflet.css";
 import "leaflet-defaulticon-compatibility";
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
+const API_BASE = "https://trafficai-z765.onrender.com";
+
 export default function MapView() {
 
-    const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
-    useEffect(()=>{
+  useEffect(() => {
 
-        axios
-            .get("https://trafficai-z765.onrender.com/events")
-            .then(res=>setEvents(res.data))
-            .catch(console.error);
+    axios
+      .get(`${API_BASE}/events?active=true&limit=50`)
+    //   .then(res => setEvents(res.data))
+    .then(res => setEvents(Array.isArray(res.data) ? res.data : (res.data.events || [])))
+      .catch(console.error);
 
-    },[]);
+  }, []);
 
-    return(
+  return (
 
-<div
-id="map"
-className="scroll-mt-24 ..."
-className="max-w-7xl mx-auto mt-16 px-8 mb-20"
->
+    <div
+      id="map"
+      className="max-w-7xl mx-auto mt-16 px-8 mb-20 scroll-mt-24"
+    >
 
-<h1 className="text-3xl font-bold text-blue-900 mb-8">
+      <div className="flex items-center justify-between mb-8">
 
-🗺 Live Bengaluru Traffic Map
+        <h1 className="text-3xl font-bold text-blue-900">
+          🗺 Live Bengaluru Traffic Map
+        </h1>
 
-</h1>
+        <div className="flex gap-5 text-sm">
 
-<div className="rounded-3xl overflow-hidden shadow-xl">
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 rounded-full bg-red-500"></span>
+            High Risk
+          </div>
 
-<MapContainer className="z-0"
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 rounded-full bg-yellow-500"></span>
+            Medium Risk
+          </div>
 
-center={[12.9716,77.5946]}
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 rounded-full bg-green-500"></span>
+            Low Risk
+          </div>
 
-zoom={12}
+        </div>
 
-style={{
+      </div>
 
-height:"600px",
+      <div className="rounded-3xl overflow-hidden shadow-xl">
 
-width:"100%"
+        <MapContainer
+          center={[12.9716, 77.5946]}
+          zoom={12}
+          className="z-0"
+          style={{
+            height: "600px",
+            width: "100%"
+          }}
+        >
 
-}}
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
 
->
+          {events.map((event, index) => {
 
-<TileLayer
+            let color = "green";
 
-url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            if (event.risk === "High")
+              color = "red";
+            else if (event.risk === "Medium")
+              color = "orange";
 
-/>
+            return (
 
-{
+              <CircleMarker
+                key={index}
+                center={[event.lat, event.lng]}
+                radius={8}
+                pathOptions={{
+                  color,
+                  fillColor: color,
+                  fillOpacity: 0.8
+                }}
+              >
 
-events.map((event,index)=>{
+                <Popup>
 
-let color="green";
+                  <div className="space-y-2">
 
-if(event.risk==="High")
-color="red";
+                    <h2 className="font-bold">
+                      {event.cause}
+                    </h2>
 
-else if(event.risk==="Medium")
-color="orange";
+                    <p>
+                      Risk :
+                      <b> {event.risk}</b>
+                    </p>
 
-return(
+                    <p>
+                      Status :
+                      <b> {event.status}</b>
+                    </p>
 
-<CircleMarker
+                    <p>
+                      Zone :
+                      <b> {event.zone}</b>
+                    </p>
 
-key={index}
+                  </div>
 
-center={[event.lat,event.lng]}
+                </Popup>
 
-radius={12}
+              </CircleMarker>
 
-pathOptions={{
+            );
 
-color:color,
+          })}
 
-fillColor:color,
+        </MapContainer>
 
-fillOpacity:0.8
+      </div>
 
-}}
+    </div>
 
->
-
-<Popup>
-
-<h2>
-
-{event.cause}
-
-</h2>
-
-<p>
-
-Risk : {event.risk}
-
-</p>
-
-</Popup>
-
-</CircleMarker>
-
-)
-
-})
-
-}
-
-</MapContainer>
-
-</div>
-
-</div>
-
-    )
+  );
 
 }

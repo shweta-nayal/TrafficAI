@@ -70,20 +70,31 @@ def get_dashboard():
 # Recent Events
 # ===================================================
 
-def get_recent_events(limit=10):
+# ===================================================
+# Recent Events
+# ===================================================
+
+
+def get_recent_events(page=1, limit=10):
+
+    page = int(page)
+    limit = int(limit)
 
     recent = (
-
-        df
-
-        .sort_values(
+        df.sort_values(
             "start_datetime",
             ascending=False
         )
-
-        .head(limit)
-
+        .reset_index(drop=True)
     )
+
+    total_records = len(recent)
+    total_pages = (total_records + limit - 1) // limit
+
+    start = (page - 1) * limit
+    end = start + limit
+
+    recent = recent.iloc[start:end]
 
     events = []
 
@@ -100,10 +111,73 @@ def get_recent_events(limit=10):
         events.append({
 
             "event": row["event_type"],
+            "cause": row["event_cause"],
+            "risk": risk,
+            "zone": row["zone"],
+            "status": row["status"]
+
+        })
+
+    return {
+
+        "events": events,
+        "page": page,
+        "total_pages": total_pages,
+        "total_records": total_records
+
+    }
+
+# ===================================================
+# Map Data
+# ===================================================
+
+# ===================================================
+# Map Data
+# ===================================================
+
+def get_map_events():
+
+    # Show only active events
+    map_df = df[
+        df["status"].str.lower() == "active"
+    ].copy()
+
+    # Show latest active events only
+    if "start_datetime" in map_df.columns:
+        map_df = map_df.sort_values(
+            "start_datetime",
+            ascending=False
+        )
+
+    # Limit markers
+    map_df = map_df.head(100)
+
+    events = []
+
+    for _, row in map_df.iterrows():
+
+        if pd.isna(row["latitude"]) or pd.isna(row["longitude"]):
+            continue
+
+        priority = str(row.get("priority", "")).lower()
+
+        if priority == "high":
+            risk = "High"
+        elif priority == "low":
+            risk = "Low"
+        else:
+            risk = "Medium"
+
+        events.append({
+
+            "lat": float(row["latitude"]),
+            "lng": float(row["longitude"]),
+
+            "risk": risk,
 
             "cause": row["event_cause"],
 
-            "risk": risk,
+            "event": row["event_type"],
 
             "zone": row["zone"],
 
@@ -112,40 +186,6 @@ def get_recent_events(limit=10):
         })
 
     return events
-
-
-# ===================================================
-# Map Data
-# ===================================================
-
-def get_map_events():
-
-    events = []
-
-    for _, row in df.iterrows():
-
-        risk = "Medium"
-
-        if row.get("priority", "") == "High":
-            risk = "High"
-
-        elif row.get("priority", "") == "Low":
-            risk = "Low"
-
-        events.append({
-
-            "lat": float(row["latitude"]),
-
-            "lng": float(row["longitude"]),
-
-            "risk": risk,
-
-            "cause": row["event_cause"]
-
-        })
-
-    return events
-
 
 # ===================================================
 # Analytics

@@ -112,15 +112,32 @@ def dashboard():
 
     return jsonify(get_dashboard())
 
-@app.route("/events")
-def events():
+from flask import request
 
-    return jsonify(get_map_events())
+@app.route("/events", methods=["GET"])
+def get_events():
+
+    active_only = request.args.get("active", "true").lower() == "true"
+    limit = request.args.get("limit", default=50, type=int)
+
+    return jsonify(
+        get_map_events(
+            active_only=active_only,
+            limit=limit
+        )
+    )
+
 
 @app.route("/recent-events")
 def recent_events():
 
-    return jsonify(get_recent_events())
+    page = request.args.get("page", 1)
+    limit = request.args.get("limit", 10)
+
+    return jsonify(
+        get_recent_events(page, limit)
+    )
+    
 
 @app.route("/analytics")
 def analytics():

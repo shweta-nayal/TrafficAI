@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 
 import {
   PieChart,
@@ -25,6 +26,8 @@ const COLORS = [
 const API_BASE = "https://trafficai-z765.onrender.com";
 
 export default function Analytics() {
+  
+const [loading,setLoading]=useState(true);
 
   const [eventData, setEventData] = useState([]);
 
@@ -37,13 +40,16 @@ export default function Analytics() {
       .then((res) => {
 
         setEventData(res.data.event_distribution);
-
+        setLoading(false);
         setManpower(res.data.manpower);
 
       })
       .catch((err) => console.log(err));
 
   }, []);
+
+  if(loading)
+return <LoadingSpinner/>
 
   return (
 
