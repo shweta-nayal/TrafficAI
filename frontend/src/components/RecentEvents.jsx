@@ -149,7 +149,7 @@ className="border rounded-lg px-4 py-2"
 
 <p className="text-gray-600">
 
-Showing
+{/* Showing
 
 <b> {startRecord}-{endRecord}</b>
 
@@ -157,7 +157,7 @@ of
 
 <b> {totalRecords}</b>
 
-events
+events */}
 
 </p>
 
